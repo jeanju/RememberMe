@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Remember Me</string>
+    <string name="button_add">추가</string>
+    <string name="button_delete">삭제</string>
+</resources>
