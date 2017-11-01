@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
-import com.remember.jeanju34min.rememberme.DataBase.DbOpenHelper;
+import com.remember.jeanju34min.rememberme.DataBase.DbHelper;
 import com.remember.jeanju34min.rememberme.R;
 
 /**
@@ -17,7 +18,7 @@ import com.remember.jeanju34min.rememberme.R;
 
 public class AddItemActivity extends AppCompatActivity {
 
-    private DbOpenHelper mDbOpenHelper;
+    private DbHelper mDbHelper;
     private Context context;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +31,28 @@ public class AddItemActivity extends AppCompatActivity {
         mButton_add.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
-                                               Toast.makeText(getApplicationContext(),"리스트에 추가되었습니다.",Toast.LENGTH_SHORT).show();
 
-                                               //TODO: DB에 입력된 내용 추가
+                                               EditText title_input = findViewById(R.id.input_title);
+                                               EditText address_input = findViewById(R.id.input_address);
 
-                                               mDbOpenHelper = new DbOpenHelper(context);
-                                               mDbOpenHelper.open();
+                                               String title = title_input.getText().toString();
+                                               String address = address_input.getText().toString();
 
-                                               mDbOpenHelper.insert("김태희","01000001111" , 10,10);
+                                               if (title.length() != 0 && address.length() != 0) {
 
-                                               Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                                               startActivity(intent);
+                                                   mDbHelper = new DbHelper(context);
+                                                   mDbHelper.open();
+
+                                                   mDbHelper.insert(title, address , 10,10);
+
+                                                   mDbHelper.close();
+
+                                                   Toast.makeText(getApplicationContext(),"리스트에 추가되었습니다.",Toast.LENGTH_SHORT).show();
+
+                                                   Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                                   startActivity(intent);
+
+                                               }
                                            }
                                        }
         );

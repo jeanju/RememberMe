@@ -23,7 +23,6 @@ public class ListAdapter extends BaseAdapter {
 
     private ArrayList<ListViewItem> mlistViewItemList = new ArrayList<ListViewItem>() ;
 
-
     public ListAdapter(){
 
     }

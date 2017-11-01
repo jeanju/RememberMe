@@ -1,6 +1,7 @@
 package com.remember.jeanju34min.rememberme.Activity;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.remember.jeanju34min.rememberme.Adapter.ListAdapter;
+import com.remember.jeanju34min.rememberme.BackPressCloseSystem;
+import com.remember.jeanju34min.rememberme.DataBase.DbHelper;
 import com.remember.jeanju34min.rememberme.ListViewItem;
 import com.remember.jeanju34min.rememberme.R;
 
@@ -18,23 +21,26 @@ public class MainActivity extends AppCompatActivity {
 
     private ListAdapter adapter = new ListAdapter();
     private ListViewItem[] mlistviewitems = new ListViewItem[0];
+    public DbHelper mDbHelper = null;
+    private BackPressCloseSystem backPressCloseSystem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         ListView mListview = (ListView) findViewById(R.id.wannago_list);
 
-        adapter.addItem("LIST1", "가산동") ;
-        // 두 번째 아이템 추가.
-        adapter.addItem("LIST2", "김포시 운양동") ;
-        // 세 번째 아이템 추가.
-        adapter.addItem("LIST3", "마곡동") ;
+        mDbHelper = new DbHelper(this);
+        mDbHelper.open();
+        Log.v("MY_TAG", "db conut = "+mDbHelper.getCount());
+        for(int i = 0; i < mDbHelper.getCount(); i++) {
+            Log.v("MY_TAG", "db conut = "+mDbHelper.getCount());
+            adapter.addItem(mDbHelper.getTitle(i), mDbHelper.getAddress(i));
+        }
+        mDbHelper.close();
 
         mListview.setAdapter(adapter);
-
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                                                Toast.makeText(getApplicationContext(),"리스트추가",Toast.LENGTH_SHORT).show();
 
                                                Intent intent = new Intent(getApplicationContext(),AddItemActivity.class);
+
                                                startActivity(intent);
                                            }
                                        }
@@ -72,7 +79,13 @@ public class MainActivity extends AppCompatActivity {
         );
 
         //setContentView(example);
-        Log.v("MY_TAG", "textview");
+        Log.v("MY_TAG", "test");
+        backPressCloseSystem = new BackPressCloseSystem(this);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPressCloseSystem.onBackPressed();
     }
 }

@@ -14,6 +14,7 @@ public final class WannagoDB {
             public static final String LNG = "longitude";
             public static final String LAT = "latitude";
             public static final String _TABLENAME = "Wannago";
+            public static final String _COUNT = "Count";
             public static final String _CREATE =
                     "create table "+_TABLENAME+"("
                             +_ID+" integer primary key autoincrement, "

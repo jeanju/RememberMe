@@ -1,21 +1,26 @@
 package com.remember.jeanju34min.rememberme.DataBase;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.remember.jeanju34min.rememberme.Activity.MainActivity;
 
 /**
  * Created by jeanju34.min on 2017-11-01.
  */
 
-public class DbOpenHelper {
+public class DbHelper {
 
     private static final String DATABASE_NAME = "wannagobook.db";
     private static final int DATABASE_VERSION = 1;
     public static SQLiteDatabase mDB;
     private DatabaseHelper mDBHelper;
     private Context mCtx;
+    Cursor mCursor = null;
 
     private class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -40,30 +45,60 @@ public class DbOpenHelper {
         }
     }
 
-    public DbOpenHelper(Context context){
+    public DbHelper(Context context){
         this.mCtx = context;
     }
 
-    public DbOpenHelper open() throws SQLException {
+    public DbHelper open() throws SQLException {
         mDBHelper = new DatabaseHelper(mCtx, DATABASE_NAME, null, DATABASE_VERSION);
         mDB = mDBHelper.getWritableDatabase();
+        mCursor = mDB.rawQuery("SELECT * FROM "+ WannagoDB.CreateDB._TABLENAME, null);
         return this;
     }
 
     public void insert(String title, String address, long longitude, long latitude){
         // DB에 입력한 값으로 행 추가
-        mDB.execSQL("INSERT INTO " + WannagoDB.CreateDB._TABLENAME + " VALUES(null, '" + title + "', " + address + ", '" + longitude + ", '" + latitude +"');");
+        Log.v("MY_TAG", "INSERT TO DB");
+        mDB.execSQL("INSERT INTO " + WannagoDB.CreateDB._TABLENAME + " VALUES(null, '" + title + "', '" + address + "', " + longitude + ", " + latitude +");");
         mDB.close();
     }
 
     public void delete(int position) {
         // 입력한 항목과 일치하는 행 삭제
-        mDB.execSQL("DELETE FROM MONEYBOOK WHERE _ID='" + position + "';");
+        mDB.execSQL("DELETE FROM " + WannagoDB.CreateDB._TABLENAME + " WHERE _ID='" + position + "';");
         mDB.close();
     }
 
     public void close(){
+        mCursor.close();
         mDB.close();
+    }
+
+    public int getCount() {
+        return mCursor.getCount();
+    }
+
+    public String getTitle(int position) {
+        mCursor.moveToFirst();
+        for (int i = 0; i<position; i++) {
+            mCursor.moveToNext();
+        }
+        if(mCursor == null)
+            return null;
+        else
+            return mCursor.getString(1);
+    }
+
+    public String getAddress(int position) {
+        mCursor.moveToFirst();
+        for (int i = 0; i<position; i++) {
+            mCursor.moveToNext();
+        }
+
+        if(mCursor == null)
+            return null;
+        else
+            return mCursor.getString(2);
     }
 
 }
