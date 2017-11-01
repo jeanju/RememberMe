@@ -1,4 +1,4 @@
-package com.remember.jeanju34min.rememberme;
+package com.remember.jeanju34min.rememberme.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.remember.jeanju34min.rememberme.ListViewItem;
+import com.remember.jeanju34min.rememberme.R;
 
 import java.util.ArrayList;
 

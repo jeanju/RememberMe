@@ -1,8 +1,10 @@
-package com.remember.jeanju34min.rememberme;
+package com.remember.jeanju34min.rememberme.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.remember.jeanju34min.rememberme.R;
 
 /**
  * Created by jeanju34.min on 2017-10-31.

@@ -1,4 +1,4 @@
-package com.remember.jeanju34min.rememberme;
+package com.remember.jeanju34min.rememberme.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.remember.jeanju34min.rememberme.Adapter.ListAdapter;
+import com.remember.jeanju34min.rememberme.ListViewItem;
+import com.remember.jeanju34min.rememberme.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,30 +38,31 @@ public class MainActivity extends AppCompatActivity {
         mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // get item
+                // Get Item (automatically position select)
                 ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
 
-                String titleStr = item.getTitle() ;
-                String descStr = item.getAddr() ;
+//                String titleStr = item.getTitle() ;
+//                String descStr = item.getAddr() ;
 
+                // Move to Info Page
                 Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
                 startActivity(intent);
-                // TODO : use item data.
+
             }
         }) ;
 
-        Button  mButton_add = (Button) findViewById(R.id.button1);
+        Button  mButton_add = (Button) findViewById(R.id.add_button);
         mButton_add.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
                                                Toast.makeText(getApplicationContext(),"리스트추가",Toast.LENGTH_SHORT).show();
-                                               adapter.addItem(
-                                                       "LIST3", "마곡동") ;
 
+                                               Intent intent = new Intent(getApplicationContext(),AddItemActivity.class);
+                                               startActivity(intent);
                                            }
                                        }
         );
-        Button  mButton_delete = (Button) findViewById(R.id.button2);
+        Button  mButton_delete = (Button) findViewById(R.id.delete_button);
         mButton_delete.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View view) {
