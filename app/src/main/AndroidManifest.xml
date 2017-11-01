@@ -16,9 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.InfoActivity"/>
-
-        <activity android:name=".Activity.AddItemActivity"/>
+        <activity android:name=".Activity.InfoActivity"
+            android:noHistory="true"
+            />
+        <!-- android:noHistory="true" history로 남지 않게 해서 뒤로해도 넘어가지 않음!-->
+        <activity android:name=".Activity.AddItemActivity"
+            android:noHistory="true"
+            />
     </application>
 
 </manifest>

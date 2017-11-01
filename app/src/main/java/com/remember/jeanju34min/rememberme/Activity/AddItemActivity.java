@@ -58,4 +58,9 @@ public class AddItemActivity extends AppCompatActivity {
         );
 
     }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+    }
 }
