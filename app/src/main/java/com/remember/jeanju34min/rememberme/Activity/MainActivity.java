@@ -20,7 +20,7 @@ import com.remember.jeanju34min.rememberme.R;
 public class MainActivity extends AppCompatActivity {
 
     private ListAdapter adapter = new ListAdapter();
-    private ListViewItem[] mlistviewitems = new ListViewItem[0];
+    //private ListViewItem[] mlistviewitems = new ListViewItem[0];
     public DbHelper mDbHelper = null;
     private BackPressCloseSystem backPressCloseSystem;
 
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 // Get Item (automatically position select)
                 ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
 
-//                String titleStr = item.getTitle() ;
-//                String descStr = item.getAddr() ;
+                String titleStr = item.getTitle() ;
+                String descStr = item.getAddr() ;
 
                 // Move to Info Page
                 Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
@@ -74,11 +74,16 @@ public class MainActivity extends AppCompatActivity {
                                            @Override
                                            public void onClick(View view) {
                                                Toast.makeText(getApplicationContext(),"리스트삭제",Toast.LENGTH_SHORT).show();
+
+                                               adapter.setWannaDelete(true);
+                                               adapter.notifyDataSetChanged();
+                                               Button  mButton_add = (Button) findViewById(R.id.add_button);
+                                               mButton_add.setEnabled(false);
+
                                            }
                                        }
         );
 
-        //setContentView(example);
         Log.v("MY_TAG", "test");
         backPressCloseSystem = new BackPressCloseSystem(this);
 
@@ -86,6 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        backPressCloseSystem.onBackPressed();
+        if(adapter.getWannaDelete()){
+            adapter.setWannaDelete(false);
+            for (int i = 0; i < adapter.getCount() ; i++){
+                ((ListViewItem)adapter.getItem(i)).setChecked(false);
+            }
+            adapter.notifyDataSetChanged();
+            Button  mButton_add = (Button) findViewById(R.id.add_button);
+            mButton_add.setEnabled(true);
+        }
+        else {
+            backPressCloseSystem.onBackPressed();
+        }
     }
 }
