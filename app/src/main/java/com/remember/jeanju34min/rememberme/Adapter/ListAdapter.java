@@ -68,28 +68,31 @@ public class ListAdapter extends BaseAdapter {
 
         nameView.setText(Item.getTitle());
         addrView.setText(Item.getAddr());
+        //같은 컨테이너(checkBox) 리스터 해제
+        deleteBox.setOnCheckedChangeListener(null);
+
 
         if (wannaDelete){
             deleteBox.setVisibility(View.VISIBLE);
+            if (Item.getChecked()){
+                deleteBox.setChecked(true);
+            }
+            else{
+                deleteBox.setChecked(false);
+            }
+
+            deleteBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Log.v("MY_TAG", isChecked+" : isChecked");
+                    mlistViewItemList.get(pos).setChecked(isChecked);
+                    // checkBox.setChecked(isChecked);
+                }
+            });
         }
         else{
             deleteBox.setVisibility(View.GONE);
         }
-        if (Item.getChecked()){
-            deleteBox.setChecked(true);
-        }
-        else{
-            deleteBox.setChecked(false);
-        }
-
-        deleteBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.v("MY_TAG", isChecked+" : isChecked");
-                mlistViewItemList.get(pos).setChecked(isChecked);
-                // checkBox.setChecked(isChecked);
-            }
-        });
 
         return convertView;
     }
