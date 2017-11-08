@@ -44,13 +44,13 @@ public class AddItemActivity extends AppCompatActivity {
                                                    mDbHelper.open();
 
                                                    // TODO : longitude, latitude, URL 확인하여 입력해주어야 함.
-                                                   mDbHelper.insert(title, address , 10,10, "http://m.daum.net");
+                                                   mDbHelper.insert(title, address, 10, 10, "http://m.daum.net");
 
                                                    mDbHelper.close();
 
-                                                   Toast.makeText(getApplicationContext(),"리스트에 추가되었습니다.",Toast.LENGTH_SHORT).show();
+                                                   Toast.makeText(getApplicationContext(), "리스트에 추가되었습니다.", Toast.LENGTH_SHORT).show();
 
-                                                   Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                                   Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                                    startActivity(intent);
 
                                                }
@@ -61,7 +61,7 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 }

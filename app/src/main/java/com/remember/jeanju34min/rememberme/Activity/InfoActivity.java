@@ -19,7 +19,7 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_wannago);
 
-        WebView minfoView = (WebView)findViewById(R.id.web_info);
+        WebView minfoView = (WebView) findViewById(R.id.web_info);
 
         // JAVA Script 사용한다고 설정
         minfoView.getSettings().setJavaScriptEnabled(true);
@@ -27,7 +27,6 @@ public class InfoActivity extends AppCompatActivity {
         minfoView.loadUrl("http://m.daum.net");
         // Activity 내에서 Client로 webView를 이용하도록 설정
         minfoView.setWebViewClient(new webViewClient());
-
 
 
     }
