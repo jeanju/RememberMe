@@ -15,6 +15,13 @@ import com.remember.jeanju34min.rememberme.Activity.MainActivity;
 
 public class DbHelper {
 
+    public static final int DB_ID = 0;
+    public static final int DB_TITLE = 1;
+    public static final int DB_ADDR = 2;
+    public static final int DB_LNG = 3;
+    public static final int DB_LAT = 4;
+    public static final int DB_URL = 5;
+
     private static final String DATABASE_NAME = "wannagobook.db";
     private static final int DATABASE_VERSION = 1;
     public static SQLiteDatabase mDB;
@@ -56,17 +63,15 @@ public class DbHelper {
         return this;
     }
 
-    public void insert(String title, String address, long longitude, long latitude){
+    public void insert(String title, String address, long longitude, long latitude, String URL){
         // DB에 입력한 값으로 행 추가
         Log.v("MY_TAG", "INSERT TO DB");
-        mDB.execSQL("INSERT INTO " + WannagoDB.CreateDB._TABLENAME + " VALUES(null, '" + title + "', '" + address + "', " + longitude + ", " + latitude +");");
-        mDB.close();
+        mDB.execSQL("INSERT INTO " + WannagoDB.CreateDB._TABLENAME + " VALUES(null, '" + title + "', '" + address + "', " + longitude + ", " + latitude +", " + URL + ");");
     }
 
     public void delete(int position) {
         // 입력한 항목과 일치하는 행 삭제
-        mDB.execSQL("DELETE FROM " + WannagoDB.CreateDB._TABLENAME + " WHERE _ID='" + position + "';");
-        mDB.close();
+        mDB.execSQL("DELETE FROM " + WannagoDB.CreateDB._TABLENAME + " WHERE _ID = " + position + ";");
     }
 
     public void close(){
@@ -78,6 +83,28 @@ public class DbHelper {
         return mCursor.getCount();
     }
 
+    public String getURL(int position){
+        mCursor.moveToFirst();
+        for (int i = 0; i<position; i++) {
+            mCursor.moveToNext();
+        }
+        if(mCursor == null)
+            return null;
+        else
+            return mCursor.getString(DB_URL);
+    }
+
+    public int getID(int position) {
+        mCursor.moveToFirst();
+        for (int i = 0; i<position; i++) {
+            mCursor.moveToNext();
+        }
+        if(mCursor == null)
+            return -1;
+        else
+            return mCursor.getInt(DB_ID);
+    }
+
     public String getTitle(int position) {
         mCursor.moveToFirst();
         for (int i = 0; i<position; i++) {
@@ -86,7 +113,7 @@ public class DbHelper {
         if(mCursor == null)
             return null;
         else
-            return mCursor.getString(1);
+            return mCursor.getString(DB_TITLE);
     }
 
     public String getAddress(int position) {
@@ -98,7 +125,7 @@ public class DbHelper {
         if(mCursor == null)
             return null;
         else
-            return mCursor.getString(2);
+            return mCursor.getString(DB_ADDR);
     }
 
 }

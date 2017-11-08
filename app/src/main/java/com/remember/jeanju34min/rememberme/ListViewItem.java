@@ -5,6 +5,7 @@ package com.remember.jeanju34min.rememberme;
  */
 
 public class ListViewItem {
+    private int dbID ;
     private String titleStr ;
     private String addrStr ;
     private boolean isChecked = false ;
@@ -19,7 +20,9 @@ public class ListViewItem {
     public void setChecked(Boolean set) {
         this.isChecked = set ;
     }
-
+    public void setDbID(int ID){
+        dbID = ID;
+    }
 
     public String getTitle() {
         return this.titleStr ;
@@ -30,5 +33,7 @@ public class ListViewItem {
     public Boolean getChecked() {
         return this.isChecked ;
     }
-
+    public int getDbid() {
+        return this.dbID ;
+    }
 }

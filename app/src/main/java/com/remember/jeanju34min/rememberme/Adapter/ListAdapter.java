@@ -108,14 +108,19 @@ public class ListAdapter extends BaseAdapter {
 
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-        public void addItem(String title, String desc) {
+        public void addItem(String title, String desc, int dbID) {
             ListViewItem item = new ListViewItem();
 
             item.setTitle(title);
             item.setDesc(desc);
+            item.setDbID(dbID);
 
             mlistViewItemList.add(item);
         }
+
+    public void deleteItem(int position) {
+        mlistViewItemList.remove(position);
+    }
 /*
         public void visibleCheckbox(){
             //Visible Checkbox

@@ -43,7 +43,8 @@ public class AddItemActivity extends AppCompatActivity {
                                                    mDbHelper = new DbHelper(context);
                                                    mDbHelper.open();
 
-                                                   mDbHelper.insert(title, address , 10,10);
+                                                   // TODO : longitude, latitude, URL 확인하여 입력해주어야 함.
+                                                   mDbHelper.insert(title, address , 10,10, "http://m.daum.net");
 
                                                    mDbHelper.close();
 
