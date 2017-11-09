@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
                 // DB에서 URL 가져오기
                 int dbID = item.getDbid();
+                mDbHelper.open();
                 mDbHelper.getURL(dbID);
+                mDbHelper.close();
                 // TODO : DB URL info page쪽에 넘기기
                 // ListItem 하나 클릭 시 Info Page로 연결
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                                            @Override
                                            public void onClick(View view) {
                                                naverAPIHelper api = new naverAPIHelper();
-                                               api.example();
+                                               api.search();
 
                                                /*
                                                Toast.makeText(getApplicationContext(), "리스트추가", Toast.LENGTH_SHORT).show();
